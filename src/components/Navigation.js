@@ -1,33 +1,33 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SignOutButton from './SignOut';
 import * as routes from '../constants/routes';
+import { Menu, Item} from 'semantic-ui-react';
 
-const Navigation = (props, {authUser}) => 
-    <div>
-        {authUser?
-        <NavigationAuth/>:
-        <NavigationNonAuth />
-        }
-    </div>  
+const Navigation = ({ authUser }) =>
+  <div>
+    {authUser ?
+      <NavigationAuth /> :
+      <NavigationNonAuth />
+    }
+  </div>
 
-Navigation.contextTypes = {
-    authUser: PropTypes.object
-};
-
-const NavigationAuth = () => 
-    <ul>        
-        <li><Link to={routes.LANDING}>Landing</Link></li>
-        <li><Link to={routes.HOME}>Home</Link></li>
-        <li><Link to={routes.ACCOUNT}>Account</Link></li>
-        <li><SignOutButton /></li>
-    </ul>
+const NavigationAuth = () =>
+  <Menu>    
+    <Item><Link to={routes.LANDING}>Landing</Link></Item>    
+    <Item><Link to={routes.HOME}>Home</Link></Item>
+    <Item><Link to={routes.ACCOUNT}>Account</Link></Item>
+    <SignOutButton />
+  </Menu>
 const NavigationNonAuth = () =>
-    <ul>
-        <li><Link to={routes.SIGN_IN}>Sign In</Link></li>        
-        <li><Link to={routes.LANDING}>Landing</Link></li>    
-    </ul>
+  <Menu>
+    <Item><Link to={routes.SIGN_IN}>Sign In</Link></Item>
+    <Item><Link to={routes.LANDING}>Landing</Link></Item>
+  </Menu>
 
+const mapStateToProps = (state) => ({
+  authUser: state.sessionState.authUser
+})
 
-export default Navigation;
+export default connect(mapStateToProps)(Navigation);

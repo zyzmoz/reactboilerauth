@@ -1,11 +1,17 @@
 ## React Boilerplate
 
-This boilerplate use Parcel as bundler, React Semantic UI as UI framework, and Jest to test all the stuff!
+This boilerplate use Parcel as bundler, React Semantic UI as UI framework, Redux as state manager, Jest to test all the stuff and Firebase!
+
+## Built-in Features
+-Authentication
+-Real-time Database
+-UI Elements
+-Redux
 
 ## Usage
 
 ```bash
-git clone https://github.com/zyzmoz/reactboiler
+git clone https://github.com/zyzmoz/reactboilerauth
 ```
 
 Install NPM packages:
