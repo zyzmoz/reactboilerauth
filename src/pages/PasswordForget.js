@@ -5,7 +5,7 @@ import * as routes from '../constants/routes';
 import { Form, Message, FormInput, FormButton } from 'semantic-ui-react';
 
 const PasswordForgetPage = () =>
-  <div>
+  <div className="middle-form">
     <h1>Forget Password Page</h1>
     <PasswordForgetForm />
   </div>
@@ -16,7 +16,8 @@ const byPropKey = (propertyName, value) => ({
 
 const INITIAL_STATE = {
   email: '',
-  error: null
+  error: null,
+  success: false
 };
 
 class PasswordForgetForm extends Component {
@@ -26,21 +27,26 @@ class PasswordForgetForm extends Component {
   }
 
   onSubmit = (event) => {
-    const { email } = this.props;
+    const { email } = this.state;
 
     auth.doPasswordReset(email)
       .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }));
+        setTimeout(() => {
+          this.setState(byPropKey('success', true));
+        },5000);
+        
       })
       .catch(error => this.setState(byPropKey('error', error)));
 
+    this.setState(() => ({ ...INITIAL_STATE }));
     event.preventDefault();
   }
 
   render() {
     const {
       email,
-      error
+      error,
+      success
     } = this.state;
 
     const isInvalid =
@@ -55,18 +61,23 @@ class PasswordForgetForm extends Component {
           placeholder="Email Address"
         />
 
+        {error && <Message color="red">{error.message}</Message>}
+        {success && successMessage()}
+
         <FormButton
           color="red"
           disabled={isInvalid}
           type="submit">
-          Reset My Password
-                </FormButton>
-
-        {error && <Message>{error.message}</Message>}
+          Reset My Password              
+        </FormButton>
+        
       </Form>
     )
   }
 }
+
+const successMessage = () =>
+  <Message color="green">A Reset link was sent to your registration Email!</Message>
 
 const PasswordForgetLink = () =>
   <p>
