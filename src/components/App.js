@@ -16,6 +16,7 @@ import SignInPage from '../pages/SignIn';
 import PasswordForgetPage from '../pages/PasswordForget';
 import HomePage from '../pages/Home';
 import AccountPage from '../pages/Account';
+import AdminPage from '../pages/Admin';
 
 const App = () =>
     <Router>
@@ -45,6 +46,10 @@ const App = () =>
             <Route
                 exact path={routes.ACCOUNT}
                 component={() => <AccountPage />}
+            />
+            <Route 
+                exact path={routes.ADMIN}
+                component={() => <AdminPage />}
             />
         </div>
     </Router>
