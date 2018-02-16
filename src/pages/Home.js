@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Message, Button } from 'semantic-ui-react';
+import withAuthorization from '../components/withAuthorization';
 
 class HomePage extends Component {
   constructor(){
@@ -35,4 +36,6 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+const authCondition = (authUser) => !!authUser;
+
+export default withAuthorization(authCondition)(HomePage);

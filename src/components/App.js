@@ -7,6 +7,8 @@ import {
 import Navigation from './Navigation';
 import * as routes from '../constants/routes';
 
+import withAuthentication from './withAuthentication';
+
 //** Import Pages */
 import LandingPage from '../pages/Landing';
 import SignUpPage from '../pages/SignUp';
@@ -15,11 +17,11 @@ import PasswordForgetPage from '../pages/PasswordForget';
 import HomePage from '../pages/Home';
 import AccountPage from '../pages/Account';
 
-const App = () => 
+const App = () =>
     <Router>
         <div>
             <Navigation />
-            <hr/>
+            <hr />
             <Route
                 exact path={routes.LANDING}
                 component={() => <LandingPage />}
@@ -47,4 +49,6 @@ const App = () =>
         </div>
     </Router>
 
-export default App;
+
+
+export default withAuthentication(App);
