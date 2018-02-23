@@ -8,8 +8,8 @@ const withAuthentication = (Component) => {
     componentDidMount() {
       const { onSetAuthUser } = this.props;
 
-      firebase.auth.onAuthStateChanged(authUser => {
-        authUser
+      firebase.auth.onAuthStateChanged(authUser => {      
+        authUser && authUser.emailVerified
           ? onSetAuthUser(authUser)
           : onSetAuthUser(null);
       });

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import * as routes from '../constants/routes';
 import { Link, withRouter } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { auth, db, firebase } from '../firebase';
 import { Form, Message, FormInput, FormButton } from 'semantic-ui-react';
+import { authState } from '../firebase/auth';
 
 //After implements it with redux
 
@@ -11,7 +12,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
-  error: null
+  error: null  
 }
 
 const SignUpPage = ({ history }) =>
@@ -31,9 +32,10 @@ class SignUpForm extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-
+  
   onSubmit = (event) => {
     console.log(this.state);
+    
 
     const {
       username,
@@ -46,12 +48,17 @@ class SignUpForm extends Component {
     } = this.props;
 
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
+      .then(authUser => {        
         //Create User in Firebase database
         db.doCreateUser(authUser.uid, username, email)
           .then(() => {
             this.setState(() => ({ ...INITIAL_STATE }));
-            history.push(routes.HOME);
+            auth.doSendEmailVerification().then(() => {
+              console.log('Email Verification Sent');              
+              auth.doSignOut();
+    
+            });                      
+            //history.push(routes.SIGN_IN);
           })
           .catch(error => this.setState(byPropKey('error', error)));
 
@@ -68,7 +75,7 @@ class SignUpForm extends Component {
       email,
       passwordOne,
       passwordTwo,
-      error,
+      error      
     } = this.state;
 
     //Validation
@@ -105,7 +112,7 @@ class SignUpForm extends Component {
           placeholder="Confirm Password"
         />
         
-        {error && <Message>{error.message}</Message>}
+        {error && <Message color="red">{error.message}</Message>}        
 
         <FormButton primary
           type="submit"
