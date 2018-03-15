@@ -55,8 +55,7 @@ class SignUpForm extends Component {
             this.setState(() => ({ ...INITIAL_STATE }));
             auth.doSendEmailVerification().then(() => {
               console.log('Email Verification Sent');              
-              auth.doSignOut();
-    
+              history.push(routes.VERIFY_ACCOUNT);
             });                      
             //history.push(routes.SIGN_IN);
           })

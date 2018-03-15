@@ -17,6 +17,7 @@ import PasswordForgetPage from '../pages/PasswordForget';
 import HomePage from '../pages/Home';
 import AccountPage from '../pages/Account';
 import AdminPage from '../pages/Admin';
+import VerifyAccount from '../pages/VerifyAccount';
 
 const App = () =>
   <Router>
@@ -50,6 +51,10 @@ const App = () =>
       <Route
         exact path={routes.ADMIN}
         component={() => <AdminPage />}
+      />
+      <Route
+        exact path={routes.VERIFY_ACCOUNT}
+        component={() => <VerifyAccount />}
       />
     </div>
   </Router>

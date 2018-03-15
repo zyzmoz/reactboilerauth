@@ -18,7 +18,9 @@ const NavigationAuth = () =>
     <Item><Link to={routes.LANDING}>Landing</Link></Item>    
     <Item><Link to={routes.HOME}>Home</Link></Item>
     <Item><Link to={routes.ACCOUNT}>Account</Link></Item>
-    <SignOutButton />
+    <Menu.Menu position="right">
+      <SignOutButton />
+    </Menu.Menu>
   </Menu>
 const NavigationNonAuth = () =>
   <Menu>
